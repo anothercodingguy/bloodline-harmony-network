@@ -48,9 +48,12 @@ export const createDonor = (data: Omit<Donor, 'id' | 'role' | 'createdAt'>): Pro
     id: `donor-${mockDonors.length + 1}`,
     role: 'donor',
     createdAt: new Date(),
+    isEligible: true, // New donors are eligible by default
     ...data,
   };
   
-  mockDonors.push(newDonor);
+  // Add to the mock donors array
+  mockDonors.unshift(newDonor); // Add to the beginning of the array
+  
   return Promise.resolve(newDonor);
 };

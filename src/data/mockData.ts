@@ -1,4 +1,3 @@
-
 import { Donor, BloodInventoryItem, Donation, BloodRequest, BloodUnit, BloodGroup } from '@/models/types';
 
 // Helper function to generate random dates
@@ -10,11 +9,11 @@ const randomDate = (start: Date, end: Date) => {
 export const mockDonors: Donor[] = [
   {
     id: '1',
-    name: 'John Donor',
-    email: 'john@example.com',
+    name: 'Rajesh Kumar',
+    email: 'rajesh@example.com',
     role: 'donor',
-    phone: '123-456-7890',
-    address: '123 Main St, City',
+    phone: '9876543210',
+    address: 'Sector 18, Noida',
     createdAt: new Date('2023-01-15'),
     bloodGroup: 'A+',
     lastDonation: new Date('2023-10-10'),
@@ -24,11 +23,11 @@ export const mockDonors: Donor[] = [
   },
   {
     id: '2',
-    name: 'Sarah Smith',
-    email: 'sarah@example.com',
+    name: 'Priya Sharma',
+    email: 'priya@example.com',
     role: 'donor',
-    phone: '987-654-3210',
-    address: '456 Oak St, Town',
+    phone: '8765432109',
+    address: 'Malviya Nagar, Delhi',
     createdAt: new Date('2023-02-20'),
     bloodGroup: 'O-',
     lastDonation: new Date('2023-11-05'),
@@ -38,11 +37,11 @@ export const mockDonors: Donor[] = [
   },
   {
     id: '3',
-    name: 'Michael Johnson',
-    email: 'michael@example.com',
+    name: 'Amit Patel',
+    email: 'amit@example.com',
     role: 'donor',
-    phone: '555-123-4567',
-    address: '789 Pine St, Village',
+    phone: '7654321098',
+    address: 'Bodakdev, Ahmedabad',
     createdAt: new Date('2023-03-10'),
     bloodGroup: 'B+',
     lastDonation: new Date('2023-09-15'),
@@ -52,11 +51,11 @@ export const mockDonors: Donor[] = [
   },
   {
     id: '4',
-    name: 'Emily Davis',
-    email: 'emily@example.com',
+    name: 'Sneha Reddy',
+    email: 'sneha@example.com',
     role: 'donor',
-    phone: '444-555-6666',
-    address: '101 Cedar St, Hamlet',
+    phone: '6543210987',
+    address: 'Jubilee Hills, Hyderabad',
     createdAt: new Date('2023-04-05'),
     bloodGroup: 'AB+',
     lastDonation: new Date('2023-08-20'),
@@ -66,11 +65,11 @@ export const mockDonors: Donor[] = [
   },
   {
     id: '5',
-    name: 'Daniel Brown',
-    email: 'daniel@example.com',
+    name: 'Vikram Singh',
+    email: 'vikram@example.com',
     role: 'donor',
-    phone: '222-333-4444',
-    address: '202 Birch St, Borough',
+    phone: '9876543211',
+    address: 'Civil Lines, Jaipur',
     createdAt: new Date('2023-05-12'),
     bloodGroup: 'A-',
     lastDonation: new Date('2023-07-25'),
@@ -111,8 +110,13 @@ export const mockBloodUnits: BloodUnit[] = Array.from({ length: 50 }, (_, i) => 
     collectedAt: collectedDate,
     expiresAt: expiryDate,
     status: randomStatus,
-    location: ['Central Blood Bank', 'North Hospital', 'South Medical Center', 'East Clinic', 'West Hospital'][Math.floor(Math.random() * 5)],
+    location: ['AIIMS Delhi', 'Fortis Hospital Mumbai', 'Apollo Hospital Chennai', 'Max Healthcare Bengaluru', 'Medanta Gurugram'][Math.floor(Math.random() * 5)],
   };
+});
+
+// Update location values in mockBloodUnits
+mockBloodUnits.forEach(unit => {
+  unit.location = ['AIIMS Delhi', 'Fortis Hospital Mumbai', 'Apollo Hospital Chennai', 'Max Healthcare Bengaluru', 'Medanta Gurugram'][Math.floor(Math.random() * 5)];
 });
 
 // Mock Donations
@@ -130,7 +134,7 @@ export const mockDonations: Donation[] = Array.from({ length: 20 }, (_, i) => {
     bloodGroup: donor.bloodGroup,
     quantity: Math.floor(Math.random() * 2) + 1, // 1-2 units
     donationDate,
-    location: ['Central Blood Bank', 'North Hospital', 'South Medical Center', 'East Clinic', 'West Hospital'][Math.floor(Math.random() * 5)],
+    location: ['AIIMS Delhi', 'Fortis Hospital Mumbai', 'Apollo Hospital Chennai', 'Max Healthcare Bengaluru', 'Medanta Gurugram'][Math.floor(Math.random() * 5)],
     status: randomStatus,
     healthNotes: randomStatus === 'rejected' ? 'Low hemoglobin levels' : undefined,
   };
@@ -148,16 +152,26 @@ export const mockBloodRequests: BloodRequest[] = Array.from({ length: 15 }, (_, 
   const urgencies: BloodRequest['urgency'][] = ['normal', 'urgent', 'emergency'];
   const randomUrgency = urgencies[Math.floor(Math.random() * urgencies.length)];
   
+  const requesterNames = ['Arun Gupta', 'Meera Iyer', 'Suresh Kumar', 'Deepika Shah', 'Rahul Verma'];
+  const patientNames = ['Patient Anand', 'Patient Bhatt', 'Patient Chopra', 'Patient Desai', 'Patient Ehsaan'];
+  const hospitals = [
+    'AIIMS Delhi',
+    'Fortis Hospital Mumbai',
+    'Apollo Hospital Chennai',
+    'Max Healthcare Bengaluru',
+    'Medanta Gurugram'
+  ];
+  
   return {
     id: `request-${i + 1}`,
     requesterId: `requester-${Math.floor(Math.random() * 10) + 1}`,
-    requesterName: ['Alex Johnson', 'Maria Rodriguez', 'David Kim', 'Priya Patel', 'Omar Hassan'][Math.floor(Math.random() * 5)],
-    patientName: ['Patient A', 'Patient B', 'Patient C', 'Patient D', 'Patient E'][Math.floor(Math.random() * 5)],
+    requesterName: requesterNames[Math.floor(Math.random() * requesterNames.length)],
+    patientName: patientNames[Math.floor(Math.random() * patientNames.length)],
     bloodGroup: randomBloodGroup,
     quantity: Math.floor(Math.random() * 3) + 1, // 1-3 units
     requestDate,
     requiredDate,
-    hospital: ['City Hospital', 'General Medical Center', 'University Hospital', 'Memorial Hospital', 'Community Medical'][Math.floor(Math.random() * 5)],
+    hospital: hospitals[Math.floor(Math.random() * hospitals.length)],
     reason: ['Surgery', 'Accident', 'Anemia', 'Childbirth', 'Cancer Treatment'][Math.floor(Math.random() * 5)],
     status: randomStatus,
     urgency: randomUrgency,
@@ -165,7 +179,7 @@ export const mockBloodRequests: BloodRequest[] = Array.from({ length: 15 }, (_, 
   };
 });
 
-// Utility function to get donation statistics
+// Utility functions
 export const getDonationStats = () => {
   const totalDonations = mockDonations.length;
   const completedDonations = mockDonations.filter(d => d.status === 'completed').length;
@@ -180,7 +194,6 @@ export const getDonationStats = () => {
   };
 };
 
-// Utility function to get request statistics
 export const getRequestStats = () => {
   const totalRequests = mockBloodRequests.length;
   const pendingRequests = mockBloodRequests.filter(r => r.status === 'pending').length;
@@ -197,7 +210,6 @@ export const getRequestStats = () => {
   };
 };
 
-// Utility function to get inventory statistics
 export const getInventoryStats = () => {
   const totalUnits = mockBloodInventory.reduce((sum, item) => sum + item.totalUnits, 0);
   const availableUnits = mockBloodInventory.reduce((sum, item) => sum + item.availableUnits, 0);
