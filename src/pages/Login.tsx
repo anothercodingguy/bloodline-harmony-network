@@ -33,7 +33,6 @@ const Login = () => {
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(false);
 
-  // Get the location from which the user was redirected
   const from = location.state?.from?.pathname || '/dashboard';
 
   const form = useForm<LoginFormValues>({
@@ -62,22 +61,6 @@ const Login = () => {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  // Demo account login handlers
-  const loginAsAdmin = () => {
-    form.setValue('email', 'admin@bloodbank.com');
-    form.setValue('password', 'admin123');
-  };
-
-  const loginAsDonor = () => {
-    form.setValue('email', 'donor@bloodbank.com');
-    form.setValue('password', 'donor123');
-  };
-
-  const loginAsRequester = () => {
-    form.setValue('email', 'patient@bloodbank.com');
-    form.setValue('password', 'patient123');
   };
 
   return (
@@ -150,29 +133,6 @@ const Login = () => {
                   Register now
                 </Link>
               </p>
-            </div>
-
-            <div className="mt-8">
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-300" />
-                </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white text-gray-500">Demo Accounts</span>
-                </div>
-              </div>
-
-              <div className="mt-4 grid grid-cols-3 gap-3">
-                <Button variant="outline" onClick={loginAsAdmin} type="button" size="sm">
-                  Admin
-                </Button>
-                <Button variant="outline" onClick={loginAsDonor} type="button" size="sm">
-                  Donor
-                </Button>
-                <Button variant="outline" onClick={loginAsRequester} type="button" size="sm">
-                  Requester
-                </Button>
-              </div>
             </div>
           </CardContent>
         </Card>

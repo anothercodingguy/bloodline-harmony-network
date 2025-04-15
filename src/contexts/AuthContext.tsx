@@ -1,4 +1,3 @@
-
 import React, { createContext, useState, useContext, useEffect } from 'react';
 
 export type UserRole = 'admin' | 'donor' | 'requester' | null;
@@ -21,31 +20,6 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
-// Mock user data (In a real app, this would come from a database)
-const mockUsers = [
-  {
-    id: '1',
-    name: 'Admin User',
-    email: 'admin@bloodbank.com',
-    password: 'admin123',
-    role: 'admin' as UserRole,
-  },
-  {
-    id: '2',
-    name: 'John Donor',
-    email: 'donor@bloodbank.com',
-    password: 'donor123',
-    role: 'donor' as UserRole,
-  },
-  {
-    id: '3',
-    name: 'Sarah Patient',
-    email: 'patient@bloodbank.com',
-    password: 'patient123',
-    role: 'requester' as UserRole,
-  },
-];
-
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   
@@ -58,19 +32,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const login = async (email: string, password: string) => {
-    // Simulate API call
-    return new Promise<void>((resolve, reject) => {
-      setTimeout(() => {
-        const foundUser = mockUsers.find(u => u.email === email && u.password === password);
-        if (foundUser) {
-          const { password, ...userWithoutPassword } = foundUser;
-          setUser(userWithoutPassword);
-          localStorage.setItem('bloodbank_user', JSON.stringify(userWithoutPassword));
-          resolve();
-        } else {
-          reject(new Error('Invalid email or password'));
-        }
-      }, 500);
+    // Allow any email/password combination
+    return new Promise<void>((resolve) => {
+      // Create a new user object with the provided email
+      const newUser = {
+        id: Math.random().toString(36).substr(2, 9),
+        name: email.split('@')[0], // Use part before @ as name
+        email: email,
+        role: 'admin' as UserRole, // Set everyone as admin for now
+      };
+      
+      setUser(newUser);
+      localStorage.setItem('bloodbank_user', JSON.stringify(newUser));
+      resolve();
     });
   };
 
